@@ -49,7 +49,10 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li>
+                                <a class="nav-link" href="{{ url('/products') }}">Products</a>
+                            </li>
+                        <li  class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -73,7 +76,13 @@
         </nav>
 
         <main class="py-4">
+            <div class="my-3 p-3 bg-white rounded box-shadow">
             @yield('content')
+            </div>
+            @yield('content1')
+            <div style="color: red">
+            @yield('content2')
+            </div>
         </main>
     </div>
 </body>
