@@ -2,39 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('user_id', auth()->id())->get();
 
         return view('products.index', compact('products'));
     }
 
     public function create()
     {
-        return view('products.create');
+        $categories = Category::where('status', 1)->get();
+        $tags = Tag::where('status', 1)->get();
+
+        return view('products.create', compact('categories', 'tags'));
     }
 
     public function store(Request $request)
     {
         $input = $request->all();
-
-        $input['user_id'] = 1;
-
-        Product::create($input);
-
+        $input['user_id'] = auth()->id();
+        $product = Product::create($input);
+//dd($product);
+        $product->tags()->sync($input['tags']);
         return redirect(url('products'));
     }
 
     public function edit($product)
     {
-        $product = Product::find($product);
-
-        return view('products.edit')->with('product', $product);
+        $product = Product::with('tags')->find($product);
+        $categories = Category::all();
+        $tags = Tag::where('status', 1)->get();
+//dd($product);
+        return view('products.edit')->with(['product'=> $product, 'categories' => $categories, 'tags' => $tags]);
     }
 
     public function update(Request $request, $product)
@@ -47,6 +53,8 @@ class ProductsController extends Controller
         $product->category_id = $request->get('category_id');
 
         $product->save();
+
+        $product->tags()->sync($request->get('tags'));
 
         return redirect(url('products'));
     }

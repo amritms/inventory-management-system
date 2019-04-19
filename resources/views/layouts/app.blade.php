@@ -50,6 +50,10 @@
                             @endif
                         @else
                             <li>
+                                <a class="nav-link" href="{{ url('/categories') }}">Categories</a>
+                            </li>
+
+                            <li>
                                 <a class="nav-link" href="{{ url('/products') }}">Products</a>
                             </li>
                         <li  class="nav-item dropdown">

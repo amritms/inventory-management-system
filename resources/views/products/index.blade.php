@@ -17,6 +17,7 @@
                     <th  scope="col">Category</th>
                     <th  scope="col">Description</th>
                     <th  scope="col">price</th>
+                    <th scope="col">Tags</th>
                     <th  scope="col">Actions</th>
                 </tr>
 
@@ -24,9 +25,14 @@
                 <tr>
                <td><?php echo $product->id;?></td>
                <td><?php echo $product->name;?></td>
-               <td><?php echo $product->category_id;?></td>
+               <td><?php echo $product->category->name;?></td>
                <td><?php echo $product->description;?></td>
                <td><?php echo $product->price;?></td>
+                <td>
+                    @foreach($product->tags as $tag)
+                        <span class="badge badge-secondary"> {{ $tag->name }} </span>
+                    @endforeach
+                </td>
                 <td>
                     <a href="{{ url('products/' . $product->id . '/edit') }}">Edit</a>
                     <form action="{{ url('products/' . $product->id) }}" method="POST">

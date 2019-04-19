@@ -18,12 +18,26 @@
 
         <div class="form-group">
             <label for="category">Category</label>
-            <input type="number" name="category_id" class="form-control" >
+            {{--<input type="number" name="category_id" class="form-control" >--}}
+            <select name="category_id" class="form-control">
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">
             <label for="price">Price</label>
             <input type="number" name="price" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <select name="tags[]" multiple>
+                @foreach($tags as $tag)
+                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                @endforeach
+            </select>
         </div>
         
         <div class="form-group">

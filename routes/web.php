@@ -27,3 +27,7 @@ Route::post('products', 'ProductsController@store');
 Route::get('products/{product}/edit', 'ProductsController@edit');
 Route::patch('products/{product}', 'ProductsController@update');
 Route::delete('products/{product}', 'ProductsController@destroy');
+
+
+Route::get('categories', 'CategoriesController@index');
+Route::get('categories/{category}', 'CategoriesController@show');
